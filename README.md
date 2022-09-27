@@ -1,3 +1,3 @@
 # datastructures
 
-C C++ implementation of data structures
+C C++ implementation of data structures and POINTERS
