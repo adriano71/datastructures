@@ -1,0 +1,602 @@
+#include <iostream>
+#include <climits>
+#include <cfloat>
+#include <vector>
+#include <string>
+#include <bitset>
+
+using namespace std; //replace the std::cout... for cout - no need to use the "scope resolution - :: " operator
+
+const unsigned int bitsInByte {8};
+
+void pointers();
+void heapMemoryAllocation();
+
+int main() {
+
+
+//#include <climits> - sizes for a given system - Integral types
+//#include <cfloat> - sizes for a given system  - Float types 
+
+//sizes:
+//  8 bits -                         256 - 2e8 
+// 16 bits -                      65'536 - 2e16
+// 32 bits -               4'294'967'296 - 2e32
+// 64 bits -  18'446'744'073'709'551'615 - 2e64
+  
+//CHAR_BIT	    Number of bits in a char object (byte)	8 or greater*
+//SCHAR_MIN	    Minimum value for an object of type signed char	-127 (-27+1) or less*
+//SCHAR_MAX	    Maximum value for an object of type signed char	127 (27-1) or greater*
+//UCHAR_MAX	    Maximum value for an object of type unsigned char	255 (28-1) or greater*
+//CHAR_MIN	    Minimum value for an object of type char	either SCHAR_MIN or 0
+//CHAR_MAX	    Maximum value for an object of type char	either SCHAR_MAX or UCHAR_MAX
+//MB_LEN_MAX	Maximum number of bytes in a multibyte character, for any locale	1 or greater*
+//SHRT_MIN	    Minimum value for an object of type short int	-32767 (-215+1) or less*
+//SHRT_MAX	    Maximum value for an object of type short int	32767 (215-1) or greater*
+//USHRT_MAX	    Maximum value for an object of type unsigned short int	65535 (216-1) or greater*
+//INT_MIN	    Minimum value for an object of type int	-32767 (-215+1) or less*
+//INT_MAX	    Maximum value for an object of type int	32767 (215-1) or greater*
+//UINT_MAX	    Maximum value for an object of type unsigned int	65535 (216-1) or greater*
+//LONG_MIN	    Minimum value for an object of type long int	-2147483647 (-231+1) or less*
+//LONG_MAX	    Maximum value for an object of type long int	2147483647 (231-1) or greater*
+//ULONG_MAX	    Maximum value for an object of type unsigned long int	4294967295 (232-1) or greater*
+//LLONG_MIN	    Minimum value for an object of type long long int	-9223372036854775807 (-263+1) or less*
+//LLONG_MAX	    Maximum value for an object of type long long int	9223372036854775807 (263-1) or greater*
+//ULLONG_MAX	Maximum value for an object of type unsigned long long int	18446744073709551615 (264-1) or greater
+  
+//Literal constants
+// \n - newline
+// \r - return
+// \t - tab
+// \b - backspace
+// \' - single quote
+// \" - double quote
+// \\ - backslash
+  
+
+//char data type
+ char c;      //8 bits
+ char16_t c16;  //16 bits
+ char32_t c32;  //32 bits
+ wchar_t  wc;   //represent the largest available character set
+ 
+
+ 
+  
+//float                            /7      decimal digits - Precision - 1.2x10e-38   to 3.4x18e38
+ float f;
+//double       No less than float  /15     decimal digits - Precision - 2.2x10e-308  to 1.8x18e308
+ double d;
+//long double  No less than float  /19     decimal digits - Precision - 3.3x10e-4932 to 3.4x18e4932
+ long double ld;
+ 
+//boolean type 8 bits - 0 FALSE / non-zero TRUE
+  bool b; // bool gameOver {false}; cout << gameOver << endl; Console will show - 0
+   
+
+
+//display sizeof system information for a given system
+    cout << "YOUR SYSTEM sizeof INFORMATION" << endl;
+    cout << "======================================================" << endl;
+
+    cout << "char sizeof INFORMATION" << endl;
+    cout << "======================================================" << endl;
+    // char sizeof / char c
+    cout << "char:          "   << sizeof(char) << " bytes - " << bitsInByte * sizeof(char) << "  bits" 
+         << " <=> CHAR_MIN: " << CHAR_MIN << " CHAR_MAX: " << CHAR_MAX << endl; 
+    cout << "======================================================" << endl;
+    cout << "======================================================" << endl;
+    cout << "int sizeof INFORMATION" << endl;
+    cout << "======================================================" << endl;
+    ////
+    //int data type sizeof 
+    //no need to use signed - by default Integer Primitive types are signed
+    //unsigned if zero and above only - mandatory use of unsigned 
+    
+    ////
+    //short int  
+    signed short int       signedShortInt;         //At least 16 bits
+    unsigned short int     unsignedShortInt;       //At least 16 bits
+    short int              shortInt;               //signed short int <=> short int
+    //
+    //signed short int       signedShortInt;         //At least 16 bits 
+     cout << "signed short int :          " << sizeof(signed short int)            << " bytes - " << bitsInByte * sizeof(signed short int)         
+          << " bits" << " <=> SHRT_MIN:  " << SHRT_MIN << " SHRT_MAX:   " << SHRT_MAX << endl;
+    //
+    //unsigned short int     unsignedShortInt;       //At least 16 bits 
+     cout << "unsigned short int :          " << sizeof(unsigned short int)            << " bytes - " << bitsInByte * sizeof(unsigned short int)         
+          << " bits" << " <=> U SHRT MIN(0):  " << 0 << " USHRT_MAX:   " << USHRT_MAX << endl;
+    //
+    //short int              shortInt;               //signed short int <=> short int 
+     cout << "short int :          " << sizeof(short int)            << " bytes - " << bitsInByte * sizeof(short int)         
+          << " bits" << " <=> SHRT_MIN:  " << SHRT_MIN << " SHRT_MAX:   " << SHRT_MAX << endl;
+ 
+    ////
+    //int 
+    signed int             signedInt;              //At least 16 bits
+    unsigned int           unsignedInt;            //At least 16 bits
+    int                    i;                      //signed int <=> int 
+    //
+    //signed int       signedInt;         //At least 16 bits 
+     cout << "signed int :          " << sizeof(signed int)            << " bytes - " << bitsInByte * sizeof(signed int)         
+          << " bits" << " <=> INT_MIN:  " << INT_MIN << " INT_MAX:   " << INT_MAX << endl;
+    //
+    //unsigned int     unsignedInt;       //At least 16 bits 
+     cout << "unsigned int :          " << sizeof(unsigned int)            << " bytes - " << bitsInByte * sizeof(unsigned int)         
+          << " bits" << " <=> U SHRT MIN(0):  " << 0 << " UINT_MAX:   " << USHRT_MAX << endl;
+    //
+    //int              i;               //signed short int <=> short int 
+     cout << "int :          " << sizeof(int)            << " bytes - " << bitsInByte * sizeof(int)         
+          << " bits" << " <=> INT_MIN:  " << INT_MIN << " INT_MAX:   " << INT_MAX << endl;
+ 
+    ////
+    //long int 
+    signed long int        signedLongInt;          //At least 32 bits
+    unsigned long int      unsignedLongInt;        //At least 32 bits
+    long int               longInt;                //signed long int <=> long int
+    long                   longIntB;               //signed long int <=> long int <=> long
+    //
+    //signed long int        signedLongInt;          //At least 32 bits
+    cout << "signed long int :          " << sizeof(signed long int)            << " bytes - " << bitsInByte * sizeof(signed long int)         
+         << " bits" << " <=> LONG_MIN:  " << LONG_MIN << " LONG_MAX:   " << LONG_MAX << endl;
+    //
+    //unsigned long int      unsignedLongInt;        //At least 32 bits
+    cout << "unsigned long int :          " << sizeof(unsigned long int)            << " bytes - " << bitsInByte * sizeof(unsigned long int)         
+         << " bits" << " <=> U LONG MIN(0):  " << 0 << " LONG_MAX:   " << LONG_MAX << endl;
+    //
+    //long int               longInt;                //signed long int <=> long int
+    cout << "long int :          " << sizeof(long int)            << " bytes - " << bitsInByte * sizeof(long int)         
+         << " bits" << " <=> LONG_MIN:  " << LONG_MIN << " LONG_MAX:   " << LONG_MAX << endl;
+    //
+    //long                   longIntB;               //signed long int <=> long int <=> long
+    cout << "signed long int :          " << sizeof(long)            << " bytes - " << bitsInByte * sizeof(long)         
+         << " bits" << " <=> LONG_MIN:  " << LONG_MIN << " LONG_MAX:   " << LONG_MAX << endl;
+ 
+    ////
+    //long long int
+    signed long long int   signedLongLongInt;       //At least 64 bits
+    unsigned long long int unsignedLongLongInt;     //At least 64 bits
+    long long int          longLongInt;             //signed long long int <=> long long int
+    long long              longLong;                //signed long long int <=> long long int <=> long long 
+    //
+    //signed long long int        signedLongInt;          //At least 32 bits
+    cout << "signed long int :          " << sizeof(signed long int)            << " bytes - " << bitsInByte * sizeof(signed long int)         
+         << " bits" << " <=> LONG_MIN:  " << LONG_MIN << " LONG_MAX:   " << LONG_MAX << endl;
+    //
+    //unsigned long int      unsignedLongInt;        //At least 32 bits
+    cout << "unsigned long int :          " << sizeof(unsigned long int)            << " bytes - " << bitsInByte * sizeof(unsigned long int)         
+         << " bits" << " <=> U LONG MIN(0):  " << 0 << " LONG_MAX:   " << LONG_MAX << endl;
+    //
+    //long int               longInt;                //signed long int <=> long int
+    cout << "long int :          " << sizeof(long int)            << " bytes - " << bitsInByte * sizeof(long int)         
+         << " bits" << " <=> LONG_MIN:  " << LONG_MIN << " LONG_MAX:   " << LONG_MAX << endl;
+    //
+    //long                   longIntB;               //signed long int <=> long int <=> long
+    cout << "signed long int :          " << sizeof(long)            << " bytes - " << bitsInByte * sizeof(long)         
+         << " bits" << " <=> LONG_MIN:  " << LONG_MIN << " LONG_MAX:   " << LONG_MAX << endl;
+
+
+
+
+
+
+
+    cout << "short:         " << sizeof(short)          << " bytes - " << bitsInByte * sizeof(short)       << " bits." << endl;
+
+    cout << "long:          " << sizeof(long)           << " bytes - " << bitsInByte * sizeof(long)        << " bits." << endl;
+
+    cout << "long long:     " << sizeof(long long)      << " bytes - " << bitsInByte * sizeof(long long)   << " bits." << endl;
+    
+    cout << "=================================" << endl;
+    cout << "float: " << sizeof(float) << " bytes." << endl;
+
+    cout << "double: " << sizeof(double) << " bytes." << endl;
+
+    cout << "long double: " << sizeof(long double) << " bytes." << endl;
+    
+    // use values defined in <climits>
+    cout << "==================================" << endl;
+    cout << "Minimum values:" << endl;
+    cout << "CHAR_MIN  char: " << CHAR_MIN << endl;
+    cout << "INT_MIN   int: " << INT_MIN << endl;
+    cout << "SHRT_MIN  short: " << SHRT_MIN << endl;
+    cout << "LONG_MIN  long: " << LONG_MIN << endl; 
+    cout << "LLONG_MIN long long: " << LLONG_MIN << endl;
+     
+    cout << "==================================" << endl;    
+    cout << "Maximum   values:" << endl;
+    cout << "CHAR_MAX  char: " << CHAR_MAX << endl;
+    cout << "INT_MAX   int: " << INT_MAX << endl;
+    cout << "SHRT_MAX  short: " << SHRT_MAX << endl;
+    cout << "LONG_MAX  long: " << LONG_MAX << endl; 
+    cout << "LLONG_MAX long long: " << LLONG_MAX << endl;
+
+//CHAR_BIT	    Number of bits in a char object (byte)	8 or greater*
+//SCHAR_MIN	    Minimum value for an object of type signed char	-127 (-27+1) or less*
+//SCHAR_MAX	    Maximum value for an object of type signed char	127 (27-1) or greater*
+//UCHAR_MAX	    Maximum value for an object of type unsigned char	255 (28-1) or greater*
+//CHAR_MIN	    Minimum value for an object of type char	either SCHAR_MIN or 0
+//CHAR_MAX	    Maximum value for an object of type char	either SCHAR_MAX or UCHAR_MAX
+//MB_LEN_MAX	Maximum number of bytes in a multibyte character, for any locale	1 or greater*
+//SHRT_MIN	    Minimum value for an object of type short int	-32767 (-215+1) or less*
+//SHRT_MAX	    Maximum value for an object of type short int	32767 (215-1) or greater*
+//USHRT_MAX	    Maximum value for an object of type unsigned short int	65535 (216-1) or greater*
+//INT_MIN	    Minimum value for an object of type int	-32767 (-215+1) or less*
+//INT_MAX	    Maximum value for an object of type int	32767 (215-1) or greater*
+//UINT_MAX	    Maximum value for an object of type unsigned int	65535 (216-1) or greater*
+//LONG_MIN	    Minimum value for an object of type long int	-2147483647 (-231+1) or less*
+//LONG_MAX	    Maximum value for an object of type long int	2147483647 (231-1) or greater*
+//ULONG_MAX	    Maximum value for an object of type unsigned long int	4294967295 (232-1) or greater*
+//LLONG_MIN	    Minimum value for an object of type long long int	-9223372036854775807 (-263+1) or less*
+//LLONG_MAX	    Maximum value for an object of type long long int	9223372036854775807 (263-1) or greater*
+//ULLONG_MAX	Maximum value for an object of type unsigned long long int	18446744073709551615 (264-1) or greater
+ 
+ 
+ //VECTORS
+  //it initializes by default so std::vector <int> vecTest (5) {0} will not work
+  std::vector <unsigned int> vecTest {0, 1, 2, 3, 4};
+  vector <long int> vecTest2 (5);
+  vector <long double> vecTest3 [5];
+  //initializes a 10 int vector with initial value of 5
+  vector <int> vectorTest4 (10, 5);
+
+   //adding element to vecTest2 
+   cout << "vecTest2... what is your size? my size is " << vecTest2.size() << "\n";
+   vecTest2.push_back(100);
+   cout << "vecTest2... what is your size? my size is " << vecTest2.size() << "\n";
+ 
+   //This will throw an error(EXCEPTION) and stop the program, but it will compile.. there are no element at 6
+   //std::cout << "Vector at position 6 is out of range!!!! " << vecTest2.at(6) << "\n";
+   std::cout << "Vector at position 5!!!! using array syntax " << vecTest2[5] << "\n";
+   
+   
+   //declaring a multidimensional vector... it is actually a vector of vectors...
+   std::vector <vector <int>> movieRatings 
+   {
+       {1,2,3,4},
+       {1,2,3,4},
+       {1,2,3,4},
+       {1,2,3,4},
+       {1,2,3,4}
+   };
+           
+    
+//Mixed Types expressions
+// lower op higher -> the lower is promoted to higher
+//eg. 2 * 2.5 => 2 is promoted to 2.0
+//
+// lower = higher -> the higher is demoted to a lower
+// int num {0}; num = 100.2 -> num will be demoted to 100
+    
+    int total {};
+    int num1 {}, num2 {}, num3 {};
+    const int count {3};
+    
+    num1 = 10; 
+    num2 = 20;
+    num3 = 10;
+    
+    total = num1 + num2 + num3;
+    
+    double average {0.0};
+   
+    //old style casting --  average = (double)total/count; 
+    //average = static_cast<double>(total) / count <=> average = total / static_cast<double>(count);
+    average = static_cast<double>(total) / count;
+    average = total / static_cast<double>(count);
+   
+    cout << "\nUsing cast to promote or demote varibles " << endl;
+    cout << "The 3 numbers were: "<< num1 << "," << num2 << "," << num3 << endl;
+    cout << "The sum of the numbers is: " << total << endl;
+    cout << "The average of the numbers is: " << average << endl;
+    
+    
+    //boolean flag to be used with std::cout to display true / false strings
+    // std::cout << boolalpha;
+    
+    //Logical operators - not(!) has a higher precedence than and(&&)
+    // (&&) has a higher precedence than or(||) 
+    // not is a unary operator
+    // and and or are binary operators
+
+
+    // POINTERS
+    pointers();
+    
+    
+    
+      printf("\n\nBITSET\n");
+  std::bitset<64> foo;
+  std::bitset<16> bar (0xfa2);
+  std::bitset<16> baz (std::string("0101111001"));
+
+  printf("std::bitset<64> foo;\nstd::bitset<16> bar (0xfa2);\nstd::bitset<16> baz (std::string(\"0101111001\"));\n");
+
+  std::cout << "foo: " << foo << '\n';
+  std::cout << "bar: " << bar << '\n';
+  std::cout << "baz: " << baz << '\n';
+    
+    
+    
+    
+    return 0;
+}
+
+
+void pointers(){
+    
+    //Pointers are strongly typed
+    int x = 5;
+    int *p = &x;
+    int **q = &p;
+    int ***r = &q;
+    
+    *p = 6; //change the value of x using pointer p 
+   
+    printf("\nPOINTERS \n");
+    
+    printf("\nPOINTER ARITHMETIC \n");
+    int a = 10;
+    int *pPointer = &a;
+    printf("int a = 10;\nint *pPointer = &a;\n");
+    printf("Variable pPointer holds value:  %d\n", pPointer);
+    printf("Variable *pPointer holds value: %d\n", *pPointer);
+    printf("The size of an integer is %d sizeof(int).\n", sizeof(int));
+    printf("Variable pPointer + 1 holds value: %d\n", pPointer + 1);
+     printf("Variable *(pPointer + 1) holds value: %d this value in our example is garbage\n\n", *(pPointer + 1));
+    
+    
+    
+    printf("\nPOINTERS * SINGLE POINTER\n");
+    printf("int x = 5;\nint *p = &x;\n*p = 6;\n\n");
+    
+    *p = 6; //change the value of x using pointer p
+    printf("Variable x  holds value: %d\n", x);
+    printf("Variable &x address value: %d\n", &x);
+    printf("Variable p holds value   : %d\n", p);
+    printf("Variable *p holds value: %d\n", *p);
+    printf("Variable &p address is : %d\n\n", &p);
+    
+    printf("\nPOINTERS ** POINTER TO POINTER\n");
+    
+    printf("int **q = &p;\n");
+    printf("Variable &q  address  value: %d\n", &q);
+    printf("Variable q   holds    value: %d\n", q);
+    printf("Variable *q  holds    value: %d\n", *q);
+    printf("Variable **q holds    value: %d\n", *(*q)); //The same as **q
+        
+    printf("\nPOINTERS ***  POINTER TO POINTER TO POINTER\n"); 
+    printf("int ***r = &q;\n");
+    printf("Variable &r  address  value: %d\n", &r);
+    printf("Variable r  holds     value: %d\n", r);
+    printf("Variable *r  holds    value: %d\n", *r);
+    printf("Variable **r holds    value: %d\n", *(*r)); //The same as **r
+    printf("Variable ***r holds   value: %d\n", *(*(*r))); //The same as ***r
+    
+    
+    
+    
+    printf("\n\n***r = 10;\n");
+    ***r = 10;
+    printf("Variable x  holds value: %d\n", x);
+    
+    printf("\n\n**q = *p + 2;\n");
+    **q = *p + 2;
+    printf("Variable x  holds value: %d\n", x);
+    
+        
+        
+    // POINTER ARE STRONG TYPES
+    int c = 1025;
+    int *iPtrA;
+    char *cPtrA;
+    void *vPtrA;
+    iPtrA = &c;
+    
+    printf("\n\nMORE ON POINTERS void* bits and bytes casting pointer\nint c = 1025;\n int *iPtrA;\n char *cPtrA;\n void *vPtrA;\n iPtrA = &c;\n");
+    
+    printf("Size of integer is %d bytes and the Value is %d\n", sizeof(int), c);
+    printf("Address of c = %d and Value = %d\n",iPtrA, *iPtrA);
+    
+    cPtrA = (char*)iPtrA; // Type Cast int pointer to char pointer, so you can access the first byte
+    // on the int pointer 
+    // 1025 = 00000000 00000000 00000100 00000001
+    printf("Size of char is %d bytes\n", sizeof(char));
+    printf("1025 = 00000000 00000000 00000100 00000001\n");
+    printf("1025 = cPtrA+2=00000000 cPtrA+2=00000000 cPtrA+1=00000100 cPtrA=00000001\n");
+    printf("The Value of cPtrA is %d The Address of &cPtrA is %d The dereference value of *cPtrA is %d\n", cPtrA, &cPtrA, *cPtrA);
+    printf("The Value of cPtrA+1 is %d  The dereference value of *(cPtrA+1) is %d\n", (cPtrA+1), *(cPtrA+1));
+    
+    
+    //ARRAY referencing, address and value. 
+    printf("\n\nARRAY referencing, address and value.\n");
+    printf("Element at index i in an array A[] can be accessed:\n");
+    printf("A is also called the base Address.\n");
+    printf("Address - &A[i] or (A + i)\n");
+    printf("Value - A[i] or *(A + i)\n\n");
+    
+    printf("int iA[5] {1,2,3,4,5};\n");
+    int iA[5] {1,2,3,4,5};
+    
+    for(int i=0; i <= 5; i++)
+    {
+        printf("Address of the index [%d] - &iA[i]\n", i, &iA[i]);
+        printf("Address of the index [%d] - iA + i\n", i, iA+i);
+        printf("Value of the index [%d] - iA[i]\n", i, iA[i]);
+        printf("Value of the index [%d] - *(iA + i)\n\n", i, *(iA+i));
+        
+    }
+    
+    printf("\n\nArray when passed as a parameter in a funcition:\n");
+    printf("int SumOfElements(int A[]){....} int A[] acts as int *A\n");
+    printf("All Arrays are passed by Reference and not by value. Arrays can be very large.\n");
+    printf("so function declaration -> SumOfElements(int A[]){....} would be the same as SumOfElements(int *A){....}");
+    printf("so in fuctions that arrays are passed as paramenters you must pass the size.\n");
+    printf("when you pass the array you can actually change the array in the called function\n");
+    
+    char *cTest = "hello";
+    printf("char *cTest = \"hello\"\n");
+    printf("Char in the first position of char *cTest %c\n", *cTest);
+    printf("Char in the second position of char *(cTest+1) %c\n", *(cTest+1));
+    printf("Char in the third position of char *(cTest+2) %c\n", *(cTest+2));
+    printf("Char in the fourth position of char *(cTest+3) %c\n", *(cTest+3));
+    printf("Char in the fith position of char *(cTest+4) %c\n", *(cTest+4));
+    
+    if(*(cTest+5)==0)
+    { 
+        printf("Char in the sixth position of char *(cTest+5) is /\'oooooo/'\n");
+    }
+    else printf("SHIT");
+        
+    //std::string strA;// = std::toBinary(1025);
+    //strA = string::toBinary(c);
+    //printf("the binary value for 1025 is %s\n",strA);
+    
+    
+    printf("\nARRAY AND MULTI-DIMENSIONAL ARRAY\n");
+    printf("int A[5];\nint *P = A;\n\\\\Print A <=> Print P\n\\\\Print *A <=> Print *P\n\\\\Print *(A + 2) <=> *(P + 2)");
+    printf("*(A + i) <=> A[i] -- (A + i) <=> &A[i]\n");
+    printf("P = A is OK -- A = P WRONG!!!\n");
+    
+    printf("MULTI-DIMENSIONAL ARRAY\n");
+    printf("int B[2][3] - This is a 2 Dimensional Array. Two one dimensional Array of 3 integers\n");
+    printf("B[0] and B[1] are 1-D Arrays of 3 integers each -> 12 Bytes each array.\n");
+    printf("int *p = B; (COMPILATION ERROR) Because B will return a pointer to 1-D array of 3 integers and just not a pointer to Integer,");
+    printf("like a 1 dimensional array. The TYPE of the pointer MATTERS not when you read the address but when you dereference.\n");
+    
+    int biArr[2][3] {{1,2,3},{11,12,13}};
+    int triArr[3][2][3] {
+                            {
+                                {1,2,3},
+                                {4,5,6}
+                            },
+                            {
+                                {11,22,33},
+                                {44,55,66}
+                            },
+                            {
+                                {111,222,333},
+                                {555,666,777}
+                            }
+                        };
+                        
+    int *iPtrB = biArr[0]; 
+    //int *pgg[3] {*biArr};
+    
+    
+    //int *iPtrBa = biArr; THIS WILL GIVE A COMPILER ERROR: cannot convert 'int (*)[3]' to 'int*' in initialization"
+    
+    printf("int biArr[2][3] {{1,2,3},{11,12,13}};\nint *iPtrB = biArr[0];//it return a pointer to int Not an int.\nint *pgg[3] {biArr[0]};\n");
+    printf("//int *iPtrBa = biArr; THIS WILL GIVE A COMPILER ERROR: cannot convert 'int (*)[3]' to 'int*' in initialization\n\n");
+    
+    printf("2D Array Summary:\n");
+    printf("int biArr[2][3] {\n");  
+    printf("                    {1,2,3},\n");
+    printf("                    {11,12,13}\n");
+    printf("                };\n");
+    
+  
+    printf("biArr           -> Address of the begining of a 2 dimensional array - Dereference a pointer to a 2 dimensional array.\n");
+    printf(" == &biArr          -> Address of the begining of a 2 dimensional array - Dereference a pointer to a 2 dimensional array.\n"); 
+    printf(" == *biArr          -> Address of the begining of a 2 dimensional array - Dereference a pointer to an array with 3 elements.\n");
+    printf(" == biArr[0]        -> Address of the begining of a 1 dimensional array - Dereference a pointer to an array with 3 elements.\n");
+    printf(" == &biArr[0]       -> Address of the begining of a 1 dimensional array - Dereference a pointer to an array with 3 elements.\n");
+    printf(" == &biArr[0][0]    -> Address of the element of a  2 dimensional array - Dereference a pointer to an int.\n");
+    printf("*biArr[0] is        -> Pointer to the first element of the array [0]    - Dereference the first element of the one dimensional array.\n");
+    printf("*biArr[1] is        -> Pointer to the first element of the array [1]    - Dereference the first element of the one dimensional array.\n");
+    printf("biArr + 1 is        -> Pointer to the second element of the 2D array    - Address of 1st element of the 2D array.\n");
+    printf("&biArr[1] is        -> Address to the second element of the 2D array    - Dereference the second element of the two dimensional array.\n");
+    printf("*(biArr + 1) is     -> Address to the second element of the 2D array    - Dereference the first element of a one dimensional array.\n");
+    printf("biArr[1] is         -> Address to the second element of the 2D array    - Dereference the second element of the two dimensional array.\n");
+    printf("&biArr[1][0] is     -> Address to the first element of the second array of a 2D array    - int*.\n");
+    
+    printf("The Value of biArr is         %d\n",biArr);
+    printf("The Value of &biArr is        %d\n", &biArr);
+    printf("The Value of *biArr is        %d\n", *biArr);
+    printf("The Value of biArr[0] is      %d\n", biArr[0]);
+    printf("The Value of &biArr[0] is     %d\n",&biArr[0]);
+    printf("The Value of &biArr[0][0] is  %d\n", &biArr[0][0]);
+    printf("The Value of *biArr[0] is     %d\n", *biArr[0]);
+    printf("The Value of *biArr[1] is     %d\n", *biArr[1]);
+    printf("The Value of biArr + 1 is     %d\n", biArr + 1);
+    printf("The Value of &biArr[1] is     %d\n",&biArr[1]);
+    printf("The Value of *(biArr + 1) is  %d\n", *(biArr + 1));
+    printf("The Value of biArr[1] is      %d\n", biArr[1]);
+    printf("The Value of &biArr[1][0] is  %d\n", &biArr[1][0]);
+    printf("The Value of iPtrB is         %d\n", iPtrB);
+    printf("The Value of &iPtrB is        %d\n", &iPtrB);
+    printf("The Value of *iPtrB is        %d\n", *iPtrB);
+    printf("The Value of iPtrB[0] is      %d\n", iPtrB[0]);
+    printf("The Value of iPtrB[1] is      %d\n", iPtrB[1]);
+    printf("The Value of iPtrB[2] is      %d\n", iPtrB[2]);
+    printf("The Value of *(iPtrB+1) is    %d\n", *(iPtrB+1));
+    printf("The Value of *(iPtrB+2) is    %d\n", *(iPtrB+2));
+    printf("CHALLANGE VALUES:\n");
+    printf("Dereferencing *biArr will give us biArr[0] which gives me pointer to integer.\n");
+    printf("***IMPORTANT - For 2-D array B[i][j]    <=> *(B[i] + j)     <=> *(*(B + i) + j)\n");
+    printf("***IMPORTANT - For 3-D array B[i][j][k] <=> *(B[i][j] + k)  <=> *(*(B[i] + j) + k)  <=> *(*(*(B + i) + j) + k)\n");
+    printf("The Value of *(biArr + 1) + 2 is        %d\n", *(biArr + 1) + 2);
+    printf("The Value of *(*(biArr + 1) + 2) is     %d\n", *(*(biArr + 1) + 2));
+    printf("The Value of *(*biArr + 1) is           %d\n", *(*biArr + 1));
+    
+    
+    heapMemoryAllocation();
+    
+    
+    }
+    
+    
+
+void heapMemoryAllocation()
+{
+    
+    int a; //goes on stack
+    int *p;
+    
+    p = (int*)malloc(sizeof(int)); //goes on heap --- c++ p = new int;
+    *p = 10;
+    free(p); // Free memory on heap   --- c++ ; delete p;
+
+ 
+    //malloc array 
+    p = (int*)malloc(20*sizeof(int)); //--- c++ p = new int[20];
+    
+    free(p);   //--- c++ ; delete [] p;
+    
+    //Malloc 
+    //void* malloc (size_t size) // in bytes -- allocated in the heap
+    // since malloc returns a void* we need to typecast the return pointer so we can 
+    // manipulate the block of memory returned by malloc
+    // int *p = (int*) malloc (10 * sizeof(int));
+    // can access the data by either *p , *(p+1) or p[0], p[1]...
+    
+    int n = 10;
+    int *A = (int*) malloc (n * sizeof(int)); 
+    
+    for (int i = 0; i < n; i++){
+        
+        A[i] = i + 1;
+        
+    }
+    for (int j = 0; j < n; j++){
+        
+        printf(" %d ", *(A + j));
+        
+    }
+    
+    free(A);
+    
+    
+    //Calloc
+    //void* calloc(size_t num, size_t size); //num is the number of elements //size is the size of each
+    //data type. calloc also initializes all memory allocated to zero so no garbage bytes.
+    //int *p = (int*) calloc (3, sizeof(int));
+    
+    //Realloc
+    //void* realloc (void* Ptr, size_t size); //Ptr the initial location of the existing block
+    //size is the size of the addional memory block to be added. 
+    
+    
+    
+    
+}
